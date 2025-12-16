@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rangliste</title>
+    <title>Rangliste - Security Awareness Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,189 +13,366 @@
         }
         
         body {
-            font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #f0e6d2;
-            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            background: #160E05;
+            color: #CEB77F;
+            padding: 30px 20px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
+        /* Header Section */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
         }
         
         .header h1 {
-            font-size: 2.5em;
-            color: #d4af37;
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 4em;
+            color: #CEB77F;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+        
+        .header .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1em;
+            color: #CEB77F;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+        
+        /* User Stats Card */
+        .user-stats-card {
+            background: linear-gradient(135deg, #4A2E22 0%, #3A1E12 100%);
+            border: 3px solid #CEB77F;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(206, 183, 127, 0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .user-stats-card .rank-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #CEB77F 0%, #B8A16C 100%);
+            color: #160E05;
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 3em;
+            padding: 15px 40px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(206, 183, 127, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        .user-stats-card .points-display {
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 5em;
+            color: #CEB77F;
+            line-height: 1;
+            margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
-        .user-stats {
-            background: linear-gradient(135deg, #3a2f1f 0%, #2a1f1f 100%);
-            border: 3px solid #d4af37;
-            border-radius: 15px;
+        .user-stats-card .points-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            color: #CEB77F;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .feedback-message {
+            background: rgba(206, 183, 127, 0.15);
+            border-left: 4px solid #CEB77F;
             padding: 20px;
-            margin-bottom: 30px;
-            text-align: center;
+            margin: 25px 0;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #CEB77F;
+            text-align: left;
         }
         
-        .user-stats h2 {
-            color: #d4af37;
-            font-size: 1.8em;
-            margin-bottom: 10px;
+        .feedback-message strong {
+            color: #CEB77F;
+            font-weight: 700;
         }
         
-        .user-stats .points {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #ffd700;
-            margin: 10px 0;
-        }
-        
-        .user-stats .rank {
-            font-size: 1.3em;
-            color: #c4b59d;
+        /* Leaderboard Section */
+        .leaderboard-section {
+            animation: fadeInUp 1s ease;
         }
         
         .leaderboard-title {
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 2.8em;
+            color: #CEB77F;
             text-align: center;
-            font-size: 2em;
-            color: #d4af37;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
         
         .leaderboard {
-            background: #2a2420;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            background: #4A2E22;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(206, 183, 127, 0.3);
         }
         
         .leaderboard-item {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #3a2f1f 0%, #2a1f1f 100%);
-            border-radius: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-left: 4px solid #5a4a3a;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #5A3E2A 0%, #4A2E22 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 5px solid #6A4E3A;
         }
         
         .leaderboard-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 5px 20px rgba(206, 183, 127, 0.4);
+            background: linear-gradient(135deg, #6A4E3A 0%, #5A3E2A 100%);
         }
         
+        /* Rank-specific styling */
         .leaderboard-item.rank-1 {
             border-left-color: #FFD700;
-            background: linear-gradient(135deg, #4a3f1f 0%, #3a2f1f 100%);
+            background: linear-gradient(135deg, #6A4E2A 0%, #5A3E1A 100%);
         }
         
         .leaderboard-item.rank-2 {
             border-left-color: #C0C0C0;
-            background: linear-gradient(135deg, #3f3f3f 0%, #2f2f2f 100%);
+            background: linear-gradient(135deg, #5F4F3F 0%, #4F3F2F 100%);
         }
         
         .leaderboard-item.rank-3 {
             border-left-color: #CD7F32;
-            background: linear-gradient(135deg, #4a3020 0%, #3a2010 100%);
+            background: linear-gradient(135deg, #6A4030 0%, #5A3020 100%);
         }
         
         .leaderboard-item.current-user {
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            border: 3px solid #CEB77F;
+            box-shadow: 0 0 25px rgba(206, 183, 127, 0.6);
             animation: pulse 2s infinite;
+            background: linear-gradient(135deg, #6A4E2A 0%, #5A3E1A 100%);
         }
         
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+            0%, 100% { box-shadow: 0 0 25px rgba(206, 183, 127, 0.6); }
+            50% { box-shadow: 0 0 35px rgba(206, 183, 127, 0.8); }
         }
         
-        .rank {
-            font-size: 1.8em;
-            font-weight: bold;
-            width: 50px;
+        .rank-number {
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 2.2em;
+            width: 60px;
             text-align: center;
-            color: #d4af37;
+            color: #CEB77F;
         }
         
-        .rank-1 .rank { color: #FFD700; font-size: 2em; }
-        .rank-2 .rank { color: #C0C0C0; font-size: 1.9em; }
-        .rank-3 .rank { color: #CD7F32; font-size: 1.85em; }
+        .rank-1 .rank-number { 
+            color: #FFD700; 
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+        }
+        
+        .rank-2 .rank-number { 
+            color: #C0C0C0; 
+            font-size: 2.4em;
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.6);
+        }
+        
+        .rank-3 .rank-number { 
+            color: #CD7F32; 
+            font-size: 2.3em;
+            text-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
+        }
         
         .medal {
-            font-size: 1.5em;
-            margin-right: 10px;
+            font-size: 2em;
+            margin: 0 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
         
-        .name {
+        .player-name {
             flex: 1;
-            font-size: 1.2em;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3em;
             font-weight: 600;
-            color: #f0e6d2;
+            color: #CEB77F;
         }
         
-        .points {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #ffd700;
-            min-width: 100px;
+        .current-user .player-name {
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(206, 183, 127, 0.5);
+        }
+        
+        .player-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .player-points {
+            font-family: 'Impact', sans-serif;
+            font-weight: normal;
+            font-size: 1.8em;
+            color: #CEB77F;
+            min-width: 120px;
             text-align: right;
+            letter-spacing: 1px;
+        }
+        
+        /* Loading & Error States */
+        .loading, .error, .no-data {
+            text-align: center;
+            padding: 50px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3em;
+            color: #CEB77F;
+            opacity: 0.8;
         }
         
         .loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 1.3em;
-            color: #d4af37;
+            animation: fadeIn 0.5s ease;
         }
         
         .error {
-            text-align: center;
-            padding: 40px;
-            color: #ff6b6b;
-            font-size: 1.2em;
+            color: #FF8B6B;
         }
         
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #c4b59d;
-            font-size: 1.2em;
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .user-stats-card .rank-badge {
+                font-size: 2.2em;
+                padding: 12px 30px;
+            }
+            
+            .user-stats-card .points-display {
+                font-size: 3.5em;
+            }
+            
+            .leaderboard-title {
+                font-size: 2em;
+            }
+            
+            .leaderboard-item {
+                padding: 15px;
+            }
+            
+            .player-name {
+                font-size: 1.1em;
+            }
+            
+            .player-points {
+                font-size: 1.5em;
+                min-width: 90px;
+            }
+            
+            .rank-number {
+                font-size: 1.8em;
+                width: 50px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏆 RANGLISTE 🏆</h1>
+            <h1>RANGLISTE</h1>
+            <div class="subtitle">Security Awareness Training</div>
         </div>
         
-        <div id="userStats" class="user-stats" style="display: none;">
-            <h2>Deine Statistik</h2>
-            <div class="rank" id="userRank">Platz #? von ?</div>
-            <div class="points" id="userPoints">0 Punkte</div>
+        <div id="userStatsCard" class="user-stats-card" style="display: none;">
+            <div class="rank-badge" id="rankBadge">PLATZ #?</div>
+            <div class="points-display" id="pointsDisplay">0</div>
+            <div class="points-label">Punkte erreicht</div>
+            <div class="feedback-message" id="feedbackMessage"></div>
         </div>
         
-        <h2 class="leaderboard-title">Top 8 Agenten</h2>
-        
-        <div id="leaderboardContent" class="leaderboard">
-            <div class="loading">⏳ Lade Rangliste...</div>
+        <div class="leaderboard-section">
+            <h2 class="leaderboard-title">TOP 8 AGENTEN</h2>
+            <div id="leaderboardContent" class="leaderboard">
+                <div class="loading">⏳ Lade Rangliste...</div>
+            </div>
         </div>
     </div>
 
     <script>
-        console.log("=== LEADERBOARD (POSTMESSAGE) START ===");
+        console.log("=== LEADERBOARD START ===");
         
         const API_URL = "https://script.google.com/macros/s/AKfycbzFpfjkuC3YbTq2_8vOrRLqrPfMhszVod63fpXwm1llhF7cjcndZogIvAtvdl3b_S_8Fw/exec";
+        
+        // Feedback messages based on performance
+        function getFeedbackMessage(rank, totalUsers, points, maxPoints) {
+            const percentage = (points / maxPoints) * 100;
+            
+            if (rank === 1) {
+                return "🌟 <strong>Ausgezeichnet!</strong> Du bist der beste Agent im Training! Deine Leistung ist vorbildlich - du hast ein hervorragendes Sicherheitsbewusstsein bewiesen.";
+            } else if (rank <= 3) {
+                return "🎯 <strong>Sehr gut!</strong> Du gehörst zu den Top 3 Agenten! Deine Aufmerksamkeit für Sicherheitsdetails ist beeindruckend. Weiter so!";
+            } else if (rank <= Math.ceil(totalUsers * 0.5)) {
+                return "💪 <strong>Gute Leistung!</strong> Du bist in der oberen Hälfte aller Teilnehmer. Du hast ein solides Verständnis für Informationssicherheit entwickelt.";
+            } else if (percentage >= 70) {
+                return "✅ <strong>Bestanden!</strong> Du hast die wichtigsten Sicherheitskonzepte verstanden. Mit etwas mehr Übung kannst du noch weiter nach oben klettern!";
+            } else if (percentage >= 50) {
+                return "📚 <strong>Grundlagen vorhanden.</strong> Du kennst einige Sicherheitsaspekte, aber es gibt noch Verbesserungspotenzial. Wiederhole die Inhalte für bessere Ergebnisse!";
+            } else {
+                return "🔄 <strong>Wiederholung empfohlen.</strong> Die Sicherheitskonzepte brauchen noch etwas Übung. Nimm dir Zeit, das Training nochmals durchzugehen!";
+            }
+        }
         
         // Listen for messages from Storyline
         window.addEventListener('message', function(event) {
@@ -248,7 +426,7 @@
                 if (response.success && response.data) {
                     displayLeaderboard(response.data, userName);
                 } else {
-                    showError("Fehler beim Laden der Daten");
+                    showError("Fehler beim Laden der Rangliste");
                 }
                 
                 // Cleanup
@@ -269,28 +447,32 @@
             
             if (!data || data.length === 0) {
                 document.getElementById('leaderboardContent').innerHTML = 
-                    '<div class="no-data">Noch keine Teilnehmer</div>';
+                    '<div class="no-data">Noch keine Teilnehmer in der Rangliste</div>';
                 return;
             }
             
             // Sort by totalPoints descending
             data.sort((a, b) => b.totalPoints - a.totalPoints);
             
-            // Find current user's rank
+            // Find current user's rank and points
             const userIndex = data.findIndex(entry => entry.name === currentUserName);
             const userRank = userIndex + 1;
             const totalUsers = data.length;
+            const maxPoints = 1500; // 500 per mission
             
             console.log("User rank:", userRank, "of", totalUsers);
             
-            // Show user stats
+            // Show user stats card
             if (userIndex !== -1) {
                 const userEntry = data[userIndex];
-                document.getElementById('userStats').style.display = 'block';
-                document.getElementById('userRank').textContent = 
-                    'Platz #' + userRank + ' von ' + totalUsers;
-                document.getElementById('userPoints').textContent = 
-                    userEntry.totalPoints + ' Punkte';
+                const userPoints = userEntry.totalPoints;
+                
+                document.getElementById('userStatsCard').style.display = 'block';
+                document.getElementById('rankBadge').textContent = 
+                    'PLATZ #' + userRank + ' VON ' + totalUsers;
+                document.getElementById('pointsDisplay').textContent = userPoints;
+                document.getElementById('feedbackMessage').innerHTML = 
+                    getFeedbackMessage(userRank, totalUsers, userPoints, maxPoints);
             }
             
             // Get top 8
@@ -304,33 +486,31 @@
                 const isCurrentUser = entry.name === currentUserName;
                 
                 let medal = '';
-                let rankClass = '';
+                let rankClass = 'rank-' + rank;
                 
                 if (rank === 1) {
                     medal = '🥇';
-                    rankClass = 'rank-1';
                 } else if (rank === 2) {
                     medal = '🥈';
-                    rankClass = 'rank-2';
                 } else if (rank === 3) {
                     medal = '🥉';
-                    rankClass = 'rank-3';
                 }
                 
                 const currentUserClass = isCurrentUser ? 'current-user' : '';
+                const playerIcon = isCurrentUser ? '<span class="player-icon">👤</span>' : '';
                 
                 html += `
                     <div class="leaderboard-item ${rankClass} ${currentUserClass}">
-                        <div class="rank">${rank}</div>
+                        <div class="rank-number">${rank}</div>
                         ${medal ? `<div class="medal">${medal}</div>` : ''}
-                        <div class="name">${isCurrentUser ? '👤 ' : ''}${entry.name}</div>
-                        <div class="points">${entry.totalPoints} P</div>
+                        <div class="player-name">${playerIcon}${entry.name}</div>
+                        <div class="player-points">${entry.totalPoints} P</div>
                     </div>
                 `;
             });
             
             document.getElementById('leaderboardContent').innerHTML = html;
-            console.log("✅ LEADERBOARD LOADED!");
+            console.log("✅ LEADERBOARD DISPLAYED!");
         }
         
         function showError(message) {
