@@ -1,217 +1,347 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<style>
-/* [GLEICHE STYLES WIE VORHER - ZU LANG FÜR HIER] */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #160e05;
-  padding: 40px 20px;
-  color: #fff;
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.header h1 {
-  font-family: Impact, sans-serif;
-  font-size: 56px;
-  font-weight: normal;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: #ceb77f;
-  text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
-  margin-bottom: 15px;
-  border: 4px solid #ceb77f;
-  border-radius: 50px;
-  padding: 20px 40px;
-  background: #4a2e22;
-  display: inline-block;
-}
-
-.loading {
-  text-align: center;
-  font-size: 20px;
-  padding: 60px;
-  color: #ceb77f;
-  font-weight: 600;
-}
-
-.error {
-  background: #ceb77f;
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  color: #160e05;
-  font-weight: 700;
-  font-size: 18px;
-  border: 4px solid #4a2e22;
-}
-
-.refresh-btn {
-  background: #ceb77f;
-  border: 3px solid #4a2e22;
-  color: #160e05;
-  padding: 15px 40px;
-  font-size: 18px;
-  font-weight: 800;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-}
-
-/* [REST DER STYLES...] */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rangliste</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a1a;
+            color: #f0e6d2;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .user-stats {
+            background: linear-gradient(135deg, #3a2f1f 0%, #2a1f1f 100%);
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .user-stats h2 {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .user-stats .points {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 10px 0;
+        }
+        
+        .user-stats .rank {
+            font-size: 1.3em;
+            color: #c4b59d;
+        }
+        
+        .leaderboard-title {
+            text-align: center;
+            font-size: 2em;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .leaderboard {
+            background: #2a2420;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3a2f1f 0%, #2a1f1f 100%);
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #5a4a3a;
+        }
+        
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .leaderboard-item.rank-1 {
+            border-left-color: #FFD700;
+            background: linear-gradient(135deg, #4a3f1f 0%, #3a2f1f 100%);
+        }
+        
+        .leaderboard-item.rank-2 {
+            border-left-color: #C0C0C0;
+            background: linear-gradient(135deg, #3f3f3f 0%, #2f2f2f 100%);
+        }
+        
+        .leaderboard-item.rank-3 {
+            border-left-color: #CD7F32;
+            background: linear-gradient(135deg, #4a3020 0%, #3a2010 100%);
+        }
+        
+        .leaderboard-item.current-user {
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+        }
+        
+        .rank {
+            font-size: 1.8em;
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+            color: #d4af37;
+        }
+        
+        .rank-1 .rank { color: #FFD700; font-size: 2em; }
+        .rank-2 .rank { color: #C0C0C0; font-size: 1.9em; }
+        .rank-3 .rank { color: #CD7F32; font-size: 1.85em; }
+        
+        .medal {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .name {
+            flex: 1;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #f0e6d2;
+        }
+        
+        .points {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ffd700;
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.3em;
+            color: #d4af37;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #ff6b6b;
+            font-size: 1.2em;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #c4b59d;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 RANGLISTE 🏆</h1>
+        </div>
+        
+        <div id="userStats" class="user-stats" style="display: none;">
+            <h2>Deine Statistik</h2>
+            <div class="rank" id="userRank">Platz #? von ?</div>
+            <div class="points" id="userPoints">0 Punkte</div>
+        </div>
+        
+        <h2 class="leaderboard-title">Top 8 Agenten</h2>
+        
+        <div id="leaderboardContent" class="leaderboard">
+            <div class="loading">⏳ Lade Rangliste...</div>
+        </div>
+    </div>
 
-<div class="container">
-  <div class="header">
-    <h1>🏆 RANGLISTE</h1>
-  </div>
-  
-  <center>
-    <button class="refresh-btn" onclick="requestData()">🔄 Laden</button>
-  </center>
-  
-  <div id="content">
-    <div class="loading">⏳ Warte auf Daten von Storyline...</div>
-  </div>
-</div>
-
-<script>
-console.log("=== LEADERBOARD (POSTMESSAGE) START ===");
-
-var receivedData = null;
-
-// EMPFANGE Daten von Storyline
-window.addEventListener('message', function(event) {
-  console.log("Message received:", event.data);
-  
-  if (event.data && event.data.type === 'LEADERBOARD_DATA') {
-    receivedData = event.data;
-    loadLeaderboard(event.data);
-  }
-});
-
-// FORDERE Daten an
-function requestData() {
-  console.log("Requesting data from Storyline...");
-  window.parent.postMessage({ type: 'REQUEST_LEADERBOARD_DATA' }, '*');
-  
-  document.getElementById('content').innerHTML = '<div class="loading">⏳ Lade Daten...</div>';
-}
-
-function loadLeaderboard(data) {
-  console.log("=== LOAD LEADERBOARD ===");
-  console.log("Data:", data);
-  
-var userName = data.userName;
-var apiURL = data.apiURL;
-var m1 = data.m1 || 0;
-var m2 = data.m2 || 0;
-var m3 = data.m3 || 0;
-
-// WICHTIG: Generiere UserName falls leer!
-if (!userName || userName === '') {
-  userName = "User_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-  console.log("Generated userName:", userName);
-  
-  // Sende zurück an Storyline
-  window.parent.postMessage({
-    type: 'SET_USERNAME',
-    userName: userName
-  }, '*');
-}
-
-console.log("UserName:", userName);
-console.log("API:", apiURL);
-console.log("Missions:", m1, m2, m3);
-
-if (!apiURL) {
-  content.innerHTML = '<div class="error">❌ API fehlt!</div>';
-  return;
-}
-  
-  content.innerHTML = '<div class="loading">⏳ Lade Rangliste von API...</div>';
-  
-  var timestamp = new Date().getTime();
-  var callbackName = 'leaderboardCallback_' + timestamp;
-  var url = apiURL + '?callback=' + callbackName + '&nocache=' + timestamp;
-  
-  console.log("JSONP URL:", url);
-  
-  window[callbackName] = function(result) {
-    console.log("API Response:", result);
-    
-    try {
-      if (!result.success) throw new Error(result.message);
-      
-      var apiData = result.data;
-      var totalParticipants = apiData.length;
-      
-      var userIndex = -1;
-      var userEntry = null;
-      
-      for (var i = 0; i < apiData.length; i++) {
-        if (apiData[i].name === userName) {
-          userIndex = i;
-          userEntry = apiData[i];
-          break;
+    <script>
+        console.log("=== LEADERBOARD (POSTMESSAGE) START ===");
+        
+        const API_URL = "https://script.google.com/macros/s/AKfycbzFpfjkuC3YbTq2_8vOrRLqrPfMhszVod63fpXwm1llhF7cjcndZogIvAtvdl3b_S_8Fw/exec";
+        
+        // Listen for messages from Storyline
+        window.addEventListener('message', function(event) {
+            console.log("Message received:", event.data);
+            
+            if (event.data.type === 'LEADERBOARD_DATA') {
+                loadLeaderboard(event.data);
+            }
+        });
+        
+        // Request data from Storyline
+        function requestData() {
+            console.log("Requesting data from Storyline...");
+            window.parent.postMessage({
+                type: 'REQUEST_LEADERBOARD_DATA'
+            }, '*');
         }
-      }
-      
-      if (!userEntry) {
-        content.innerHTML = '<div class="error">❌ Ihre Daten wurden noch nicht gefunden!</div>';
-        return;
-      }
-      
-      var userRank = userIndex + 1;
-      var percentile = Math.round((userIndex / totalParticipants) * 100);
-      
-      // HIER DEN HTML AUFBAU WIE VORHER...
-      content.innerHTML = '<div style="color: #ceb77f; text-align: center; padding: 40px;">' +
-        '<h2 style="font-size: 32px; margin-bottom: 20px;">Platz #' + userRank + ' von ' + totalParticipants + '</h2>' +
-        '<p style="font-size: 48px; font-family: Impact;">' + userEntry.totalPoints + ' Punkte</p>' +
-        '</div>';
-      
-      console.log("✅ LEADERBOARD LOADED!");
-      
-    } catch (error) {
-      console.error("Error:", error);
-      content.innerHTML = '<div class="error">❌ Fehler: ' + error.message + '</div>';
-    }
-    
-    try {
-      delete window[callbackName];
-    } catch (e) {}
-  };
-  
-  var script = document.createElement('script');
-  script.src = url;
-  document.head.appendChild(script);
-}
-
-// Auto-request beim Laden
-setTimeout(requestData, 1000);
-
-console.log("=== LEADERBOARD READY ===");
-</script>
-
+        
+        function loadLeaderboard(data) {
+            console.log("=== LOAD LEADERBOARD ===");
+            console.log("Data:", data);
+            
+            let userName = data.userName;
+            const apiURL = data.apiURL || API_URL;
+            const m1 = data.m1 || 0;
+            const m2 = data.m2 || 0;
+            const m3 = data.m3 || 0;
+            
+            // Generate userName if empty
+            if (!userName || userName === "") {
+                userName = "User_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+                console.log("Generated userName:", userName);
+                
+                // Send back to Storyline
+                window.parent.postMessage({
+                    type: 'SET_USERNAME',
+                    userName: userName
+                }, '*');
+            }
+            
+            console.log("UserName:", userName);
+            console.log("API:", apiURL);
+            console.log("Missions:", m1, m2, m3);
+            
+            // Load leaderboard data via JSONP
+            const callbackName = 'leaderboardCallback_' + Date.now();
+            
+            window[callbackName] = function(response) {
+                console.log("API Response:", response);
+                
+                if (response.success && response.data) {
+                    displayLeaderboard(response.data, userName);
+                } else {
+                    showError("Fehler beim Laden der Daten");
+                }
+                
+                // Cleanup
+                delete window[callbackName];
+            };
+            
+            const script = document.createElement('script');
+            const url = apiURL + '?callback=' + callbackName + '&nocache=' + Date.now();
+            console.log("JSONP URL:", url);
+            script.src = url;
+            document.body.appendChild(script);
+        }
+        
+        function displayLeaderboard(data, currentUserName) {
+            console.log("=== DISPLAY LEADERBOARD ===");
+            console.log("Total entries:", data.length);
+            console.log("Current user:", currentUserName);
+            
+            if (!data || data.length === 0) {
+                document.getElementById('leaderboardContent').innerHTML = 
+                    '<div class="no-data">Noch keine Teilnehmer</div>';
+                return;
+            }
+            
+            // Sort by totalPoints descending
+            data.sort((a, b) => b.totalPoints - a.totalPoints);
+            
+            // Find current user's rank
+            const userIndex = data.findIndex(entry => entry.name === currentUserName);
+            const userRank = userIndex + 1;
+            const totalUsers = data.length;
+            
+            console.log("User rank:", userRank, "of", totalUsers);
+            
+            // Show user stats
+            if (userIndex !== -1) {
+                const userEntry = data[userIndex];
+                document.getElementById('userStats').style.display = 'block';
+                document.getElementById('userRank').textContent = 
+                    'Platz #' + userRank + ' von ' + totalUsers;
+                document.getElementById('userPoints').textContent = 
+                    userEntry.totalPoints + ' Punkte';
+            }
+            
+            // Get top 8
+            const top8 = data.slice(0, 8);
+            
+            // Build leaderboard HTML
+            let html = '';
+            
+            top8.forEach((entry, index) => {
+                const rank = index + 1;
+                const isCurrentUser = entry.name === currentUserName;
+                
+                let medal = '';
+                let rankClass = '';
+                
+                if (rank === 1) {
+                    medal = '🥇';
+                    rankClass = 'rank-1';
+                } else if (rank === 2) {
+                    medal = '🥈';
+                    rankClass = 'rank-2';
+                } else if (rank === 3) {
+                    medal = '🥉';
+                    rankClass = 'rank-3';
+                }
+                
+                const currentUserClass = isCurrentUser ? 'current-user' : '';
+                
+                html += `
+                    <div class="leaderboard-item ${rankClass} ${currentUserClass}">
+                        <div class="rank">${rank}</div>
+                        ${medal ? `<div class="medal">${medal}</div>` : ''}
+                        <div class="name">${isCurrentUser ? '👤 ' : ''}${entry.name}</div>
+                        <div class="points">${entry.totalPoints} P</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('leaderboardContent').innerHTML = html;
+            console.log("✅ LEADERBOARD LOADED!");
+        }
+        
+        function showError(message) {
+            document.getElementById('leaderboardContent').innerHTML = 
+                '<div class="error">❌ ' + message + '</div>';
+        }
+        
+        // Initial data request
+        requestData();
+        
+        console.log("=== LEADERBOARD READY ===");
+    </script>
 </body>
 </html>
