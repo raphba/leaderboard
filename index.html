@@ -51,13 +51,13 @@
             letter-spacing: 1px;
         }
         
-        /* User Stats Card */
+        /* User Stats Card - Compact Version */
         .user-stats-card {
             background: linear-gradient(135deg, #4A2E22 0%, #3A1E12 100%);
             border: 3px solid #CEB77F;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(206, 183, 127, 0.3);
             animation: fadeInUp 0.8s ease;
@@ -69,10 +69,10 @@
             color: #160E05;
             font-family: 'Impact', sans-serif;
             font-weight: normal;
-            font-size: 3em;
-            padding: 15px 40px;
+            font-size: 2em;
+            padding: 10px 30px;
             border-radius: 50px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             box-shadow: 0 5px 15px rgba(206, 183, 127, 0.4);
             letter-spacing: 2px;
         }
@@ -80,30 +80,30 @@
         .user-stats-card .points-display {
             font-family: 'Impact', sans-serif;
             font-weight: normal;
-            font-size: 5em;
+            font-size: 3.5em;
             color: #CEB77F;
             line-height: 1;
-            margin: 20px 0;
+            margin: 12px 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         .user-stats-card .points-label {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
+            font-size: 1em;
             color: #CEB77F;
             opacity: 0.9;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
         .feedback-message {
             background: rgba(206, 183, 127, 0.15);
             border-left: 4px solid #CEB77F;
-            padding: 20px;
-            margin: 25px 0;
+            padding: 15px;
+            margin: 15px 0 0 0;
             border-radius: 10px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.05em;
-            line-height: 1.7;
+            font-size: 0.95em;
+            line-height: 1.5;
             color: #CEB77F;
             text-align: left;
         }
@@ -360,17 +360,17 @@
             const percentage = (points / maxPoints) * 100;
             
             if (rank === 1) {
-                return "🌟 <strong>Ausgezeichnet!</strong> Du bist der beste Agent im Training! Deine Leistung ist vorbildlich - du hast ein hervorragendes Sicherheitsbewusstsein bewiesen.";
+                return "🌟 <strong>Ausgezeichnet!</strong> Sie sind der beste Agent im Training! Ihre Leistung ist vorbildlich - Sie haben ein hervorragendes Sicherheitsbewusstsein bewiesen.";
             } else if (rank <= 3) {
-                return "🎯 <strong>Sehr gut!</strong> Du gehörst zu den Top 3 Agenten! Deine Aufmerksamkeit für Sicherheitsdetails ist beeindruckend. Weiter so!";
+                return "🎯 <strong>Sehr gut!</strong> Sie gehören zu den Top 3 Agenten! Ihre Aufmerksamkeit für Sicherheitsdetails ist beeindruckend. Weiter so!";
             } else if (rank <= Math.ceil(totalUsers * 0.5)) {
-                return "💪 <strong>Gute Leistung!</strong> Du bist in der oberen Hälfte aller Teilnehmer. Du hast ein solides Verständnis für Informationssicherheit entwickelt.";
+                return "💪 <strong>Gute Leistung!</strong> Sie sind in der oberen Hälfte aller Teilnehmer. Sie haben ein solides Verständnis für Informationssicherheit entwickelt.";
             } else if (percentage >= 70) {
-                return "✅ <strong>Bestanden!</strong> Du hast die wichtigsten Sicherheitskonzepte verstanden. Mit etwas mehr Übung kannst du noch weiter nach oben klettern!";
+                return "✅ <strong>Bestanden!</strong> Sie haben die wichtigsten Sicherheitskonzepte verstanden. Mit etwas mehr Übung können Sie noch weiter nach oben klettern!";
             } else if (percentage >= 50) {
-                return "📚 <strong>Grundlagen vorhanden.</strong> Du kennst einige Sicherheitsaspekte, aber es gibt noch Verbesserungspotenzial. Wiederhole die Inhalte für bessere Ergebnisse!";
+                return "📚 <strong>Grundlagen vorhanden.</strong> Sie kennen einige Sicherheitsaspekte, aber es gibt noch Verbesserungspotenzial. Wiederholen Sie die Inhalte für bessere Ergebnisse!";
             } else {
-                return "🔄 <strong>Wiederholung empfohlen.</strong> Die Sicherheitskonzepte brauchen noch etwas Übung. Nimm dir Zeit, das Training nochmals durchzugehen!";
+                return "🔄 <strong>Wiederholung empfohlen.</strong> Die Sicherheitskonzepte brauchen noch etwas Übung. Nehmen Sie sich Zeit, das Training nochmals durchzugehen!";
             }
         }
         
